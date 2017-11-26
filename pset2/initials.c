@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <cs50.h>
 #include <string.h>
+#include <ctype.h>
 
 int main() 
 {
@@ -14,7 +15,7 @@ int main()
         char current = s[i];
         if (previous == ' ' && current >= 'A' && current <= 'z')
         {
-            printf("%c", current);
+            printf("%c", toupper(current));
         }
         previous = current;
     }
