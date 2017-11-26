@@ -5,7 +5,6 @@
 
 int main() 
 {
-    printf("Name: ");
     string s = get_string();
     int n = strlen(s);
 
