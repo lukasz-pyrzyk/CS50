@@ -3,26 +3,45 @@
 #include <string.h>
 #include <ctype.h>
 
-int main(int argc, string argv[]) 
+char encryptForValuesInRegion(char value, char from, char to, int key);
+
+int main(int argc, string argv[])
 {
     if(argc != 2)
     {
-        printf("please provide a key");
+        printf("Usage: %s k\n", argv[0]);
         return 1;
     }
 
-    int n = atoi(argv[1]);
-    int key = n % 26;
+    int keyDirty = atoi(argv[1]);
+    int key = keyDirty % 26;
 
-    printf("Key: %i\n", key);
     printf("plaintext: ");
     string s = get_string();
 
     printf("ciphertext: ");
     for(int i = 0, n = strlen(s); i < n; i++)
     {
-        // TODO: 'z' => 'a' instead of '{'
-        printf("%c", s[i] + key);
+        char c = s[i];
+
+        c = encryptForValuesInRegion(c, 'A', 'Z', key);
+        c = encryptForValuesInRegion(c, 'a', 'z', key);
+
+        printf("%c", c);
     }
-    printf("\n");    
+    printf("\n");
+}
+
+char encryptForValuesInRegion(char value, char from, char to, int key)
+{
+    int cn = value;
+    if(value >= from && value <= to)
+    {
+        cn = value + key;
+        if(cn > to)
+        {
+            cn -= 26;
+        }
+    }
+    return (char)cn;
 }
