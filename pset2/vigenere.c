@@ -3,7 +3,7 @@
 #include <string.h>
 
 int getKey(string hasher, int index);
-char shiftValue(char input, char min, char max, int key);
+char shiftValue(char input, char max, int key);
 
 int main(int argc, string argv[])
 {
@@ -28,12 +28,12 @@ int main(int argc, string argv[])
 
         if ('A' <= original && original <= 'Z')
         {
-            encrypted = shiftValue(encrypted, 'A', 'Z', currentKey);
+            encrypted = shiftValue(encrypted, 'Z', currentKey);
             index++;
         }
         else if ('a' <= original && original <= 'z')
         {
-            encrypted = shiftValue(encrypted, 'a', 'z', currentKey);
+            encrypted = shiftValue(encrypted, 'z', currentKey);
             index++;
         }
 
@@ -57,7 +57,7 @@ int getKey(string hasher, int index)
     }
 }
 
-char shiftValue(char input, char min, char max, int key)
+char shiftValue(char input, char max, int key)
 {
     int encrypted = input + key;
     if (encrypted > max)
