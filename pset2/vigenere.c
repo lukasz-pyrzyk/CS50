@@ -20,7 +20,7 @@ int main(int argc, string argv[])
 
     printf("ciphertext: ");
     int index = 0;
-    for(int i = 0, n = strlen(s); i < n; i++)
+    for (int i = 0, n = strlen(s); i < n; i++)
     {
         int currentKey = getKey(key, index);
         char original = s[i];
@@ -47,7 +47,7 @@ int getKey(string hasher, int index)
     int length = strlen(hasher);
     char character = hasher[index % length];
 
-    if('A' <= character && character <= 'Z')
+    if ('A' <= character && character <= 'Z')
     {
         return character - 'A';
     }
@@ -59,17 +59,11 @@ int getKey(string hasher, int index)
 
 char shiftValue(char input, char min, char max, int key)
 {
-    if (min <= input && input <= max)
+    int encrypted = input + key;
+    if (encrypted > max)
     {
-        int crypted = input + key;
-        if (crypted > max)
-        {
-            crypted -= 26;
-        }
-
-        // printf("%c changed to %c using key %i (%c)\n", input, crypted, key, key + 'A');
-        return (char)crypted;
+        encrypted -= 26;
     }
 
-    return input;
+    return (char)encrypted;
 }
