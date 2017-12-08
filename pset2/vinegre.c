@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <cs50.h>
 #include <string.h>
-#include <ctype.h>
 
 int getKey(string hasher, int index);
 char shiftValue(char input, char min, char max, int key);
