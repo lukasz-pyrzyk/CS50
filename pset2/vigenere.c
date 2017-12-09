@@ -2,7 +2,8 @@
 #include <cs50.h>
 #include <string.h>
 
-int getKey(string hasher, int index);
+int validateKey(string key);
+int getKey(string key, int index);
 char shiftValue(char input, char max, int key);
 
 int main(int argc, string argv[])
@@ -14,6 +15,11 @@ int main(int argc, string argv[])
     }
 
     string key = argv[1];
+    int validation = validateKey(key);
+    if(validation != 0)
+    {
+        return validation;
+    }
 
     printf("plaintext: ");
     string s = get_string();
@@ -42,10 +48,10 @@ int main(int argc, string argv[])
     printf("\n");
 }
 
-int getKey(string hasher, int index)
+int getKey(string key, int index)
 {
-    int length = strlen(hasher);
-    char character = hasher[index % length];
+    int length = strlen(key);
+    char character = key[index % length];
 
     if ('A' <= character && character <= 'Z')
     {
@@ -55,6 +61,20 @@ int getKey(string hasher, int index)
     {
         return character - 'a';
     }
+}
+
+int validateKey(string key)
+{
+    for (int i = 0, n = strlen(key); i < n; i++)
+    {
+        char c = key[i];
+        if (c < 'A' || c > 'z' || (c > 'Z' && c < 'a'))
+        {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 char shiftValue(char input, char max, int key)
