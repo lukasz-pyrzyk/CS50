@@ -2,7 +2,9 @@
     "C_Cpp.intelliSenseEngine": "Default",
     "files.associations": {
         "stdio.h": "c",
-        "cs50.h": "c"
+        "cs50.h": "c",
+        "unistd.h": "c",
+        "string.h": "c"
     },
     "C_Cpp.intelliSenseEngineFallback": "Disabled",
     "C_Cpp.errorSquiggles": "Disabled"
