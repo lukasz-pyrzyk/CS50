@@ -9,7 +9,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/pset3/find/less/find",
+            "program": "${workspaceFolder}/pset3/find/more/find",
             "args": ["28"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

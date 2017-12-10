@@ -7,6 +7,7 @@
 #include <cs50.h>
 
 #include "helpers.h"
+#define COUNT 65536
 
 /**
  * Returns true if value is in array of n values, else false.
@@ -45,15 +46,29 @@ bool search(int value, int values[], int n)
  */
 void sort(int values[], int n)
 {
-    for (int i = 1; i < n; i++)
+    int sorted[COUNT];
+
+    // clear array
+    for (int i = 0; i < COUNT; i++)
     {
-        int j = i;
-        while(j - 1 >= 0 && values[j] < values[j - 1])
+        sorted[i] = 0;
+    }
+
+    // write values into temp array, if there is a duplicate. Value of the temp array is a number of duplicates
+    for (int i = 0; i < n; i++)
+    {
+        int number = values[i];
+        sorted[number]++;
+    }
+
+    // rewrite temp array into correct array. If there is a duplicate, write value few times
+    int index = 0;
+    for (int i = 0; i < COUNT; i++)
+    {
+        int times = sorted[i];
+        for (int j = 0; j < times; j++)
         {
-            int current = values[j];
-            values[j] = values[j - 1];
-            values[j - 1] = current;
-            j--;
+            values[index++] = i;
         }
     }
 }
