@@ -25,11 +25,11 @@ bool search(int value, int values[], int n)
         int current = values[m];
         if (value < current)
         {
-            lindex = m + 1;
+            rindex = m - 1;
         }
         else if (value > current)
         {
-            rindex = m - 1;
+            lindex = m + 1;
         }
         else 
         {
@@ -57,3 +57,20 @@ void sort(int values[], int n)
         }
     }
 }
+
+// :( finds 28 in {28,29,30}
+//     expected exit code 0, not 1
+// :) finds 28 in {27,28,29}
+// :( finds 28 in {26,27,28}
+//     expected exit code 0, not 1
+// :) finds 28 in {27,28,29,30}
+// :( finds 28 in {26,27,28,29}
+//     expected exit code 0, not 1
+// :( finds 28 in {25,26,27,28}
+//     expected exit code 0, not 1
+// :) doesn't find 28 in {25,26,27}
+// :) doesn't find 28 in {25,26,27,29}
+// :) doesn't find 28 in {29,30,31,32}
+// :) doesn't find 28 in {29, 30, 31}
+// :( finds 28 in {30,27,28,26}
+//     expected exit code 0, not 1

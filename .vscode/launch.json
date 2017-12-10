@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/pset3/find/less/find",
-            "args": ["10"],
+            "args": ["28"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
