@@ -154,9 +154,24 @@ void greet(void)
  * Initializes the game's board with tiles numbered 1 through d*d - 1
  * (i.e., fills 2D array with values but does not actually print them).  
  */
+
 void init(void)
 {
-    // TODO
+    int element = d * d - 1;
+    for (int i = 0; i < d; i++)
+    {
+        for (int j = 0; j < d; j++)
+        {
+            board[i][j] = element--;
+        }
+    }
+
+    if (d % 2 == 0)
+    {
+        int temp = board[d - 1][d - 2];
+        board[d - 1][d - 2] = board[d - 1][d - 3];
+        board[d - 1][d - 3] = temp;
+    }
 }
 
 /**
@@ -164,7 +179,23 @@ void init(void)
  */
 void draw(void)
 {
-    // TODO
+    for (int i = 0; i < d; i++)
+    {
+        for (int j = 0; j < d; j++)
+        {
+            int val = board[i][j];
+            if(val != 0)
+            {
+                printf("%2i", val);
+            }
+            else
+            {
+                printf("_");
+            }
+        }
+
+        printf("\n");
+    }
 }
 
 /**
@@ -173,7 +204,56 @@ void draw(void)
  */
 bool move(int tile)
 {
-    // TODO
+    int row = -1, column = -1;
+    for (int i = 0; i < d; i++)
+    {
+        if(row != -1 && column != -1)
+        {
+            break;
+        }
+        for (int j = 0; j < d; j++)
+        {
+            if (board[i][j] == tile)
+            {
+                row = i;
+                column = j;
+                break;
+            }
+        }
+    }
+    if (row == -1 || column == -1)
+    {
+        return false;
+    }
+
+    if (row > 0 && board[row - 1][column] == 0) // check if tile can be moved up
+    {
+        board[row - 1][column] = board[row][column];
+        board[row][column] = 0;
+        return true;
+    }
+
+    if (row < d - 1 && board[row + 1][column] == 0) // check if tile can be moved down
+    {
+        board[row + 1][column] = board[row][column];
+        board[row][column] = 0;
+        return true;
+    }
+
+    if (column > 0 && board[row][column - 1] == 0) // check if tile can be moved left
+    {
+        board[row][column - 1] = board[row][column];
+        board[row][column] = 0;
+        return true;
+    }
+    
+    if (column < d - 1 && board[row][column + 1] == 0) // check if tile can be moved right
+    {
+        board[row][column + 1] = board[row][column];
+        board[row][column] = 0;
+        return true;
+    }
+
     return false;
 }
 
@@ -183,6 +263,28 @@ bool move(int tile)
  */
 bool won(void)
 {
-    // TODO
+    int previous = 0;
+    for (int i = 0; i < d; i++)
+    {
+        for (int j = 0; j < d; j++)
+        {
+            int current = board[i][j];
+            if (current > previous)
+            {
+                previous = current;
+            }
+            else if(current == 0 && previous == d - 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        printf("\n");
+    }
+
     return false;
 }
