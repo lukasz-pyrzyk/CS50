@@ -263,23 +263,24 @@ bool move(int tile)
  */
 bool won(void)
 {
-    int previous = 0;
+    int expected = 1;
     for (int i = 0; i < d; i++)
     {
         for (int j = 0; j < d; j++)
         {
             int current = board[i][j];
-            if (current > previous)
+            if (current == expected)
             {
-                previous = current;
-            }
-            else if(current == 0 && previous == d * d - 1)
-            {
-                return true;
+                expected++;
             }
             else
             {
                 return false;
+            }
+
+            if (expected == d * d - 1)
+            {
+                return true;
             }
         }
 
