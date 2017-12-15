@@ -186,11 +186,11 @@ void draw(void)
             int val = board[i][j];
             if(val != 0)
             {
-                printf("%2i", val);
+                printf(" %2i", val);
             }
             else
             {
-                printf("_");
+                printf(" _");
             }
         }
 
