@@ -273,7 +273,7 @@ bool won(void)
             {
                 previous = current;
             }
-            else if(current == 0 && previous == d - 1)
+            else if(current == 0 && previous == d * d - 1)
             {
                 return true;
             }
