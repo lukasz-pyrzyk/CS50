@@ -108,9 +108,10 @@ int main(int argc, char *argv[])
             for (int k = 0; k <out_padding; k++)
                 fputc(0x00, outptr);
 
-            fseek(inptr, -(bi.biWidth * 3 + padding ), SEEK_CUR);
+            fseek(inptr, -(bi.biWidth * 3 + padding), SEEK_CUR);
 	    }
-	    fseek(inptr, bi.biWidth*3+padding, SEEK_CUR);
+
+	    fseek(inptr, bi.biWidth * 3 + padding, SEEK_CUR);
     }
 
     // close infile
