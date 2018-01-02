@@ -26,16 +26,19 @@ int main()
     }
 }
 
+// prints space N times
 void printSpaces(int count)
 {
     print(' ', count);
 }
 
+// prints hash N times
 void printHashes(int count)
 {
     print('#', count);
 }
 
+// Prints character N times
 void print(char character, int count)
 {
     for (int j = 0; j < count; j++)
