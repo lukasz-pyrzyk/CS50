@@ -1,7 +1,9 @@
 from cs50 import get_float
 
+
 def roundNumber(n):
     return round(n * 100) / 100
+
 
 x = -1
 while x < 0:
