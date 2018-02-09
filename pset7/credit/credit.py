@@ -1,11 +1,13 @@
 from cs50 import get_int
 
+
 def get_length(number):
     count = 1
     while number > 9:
         number = number / 10
         count += 1
     return count
+
 
 def get_value_of(number, index):
     mod = pow(10, index + 1)
@@ -16,6 +18,7 @@ def get_value_of(number, index):
     # print(f"Getting index {index} from {number}, result {n}")
     return n
 
+
 def get_sum_of_the_even_numbers(number, length):
     sum = 0
     i = 0
@@ -25,6 +28,7 @@ def get_sum_of_the_even_numbers(number, length):
         sum += n
         i += 2
     return sum
+
 
 def get_sum_of_the_odd_numbers(number, length):
     sum = 0
@@ -41,8 +45,10 @@ def get_sum_of_the_odd_numbers(number, length):
         i += 2
     return sum
 
+
 def Validate(evenSum, oddSum):
     return (evenSum + oddSum) % 10 == 0
+
 
 def get_producer(n):
     if (n >= 340000000000000 and n < 350000000000000) or (n >= 370000000000000 and n < 380000000000000):
@@ -53,6 +59,7 @@ def get_producer(n):
         return "VISA"
     else:
         return "INVALID"
+
 
 number = -1
 while number < 0:
