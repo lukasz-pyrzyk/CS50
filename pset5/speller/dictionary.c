@@ -8,14 +8,15 @@ typedef struct node
 {
     char word[LENGTH + 1];
     struct node* next;
-} node;
+}
+node;
 
-node* first;
+node* head;
 unsigned int lines = 0;
 
 bool check(const char *word)
 {
-    node* current = first;
+    node* current = head;
     while (current != NULL)
     {
         if (strcmp(current->word, word) == 0)
@@ -43,7 +44,7 @@ bool load(const char *dictionary)
         return false;
     }
 
-    node* current = first;
+    node* current = head;
     char* line = malloc(LENGTH);
     if (line == NULL)
     {
@@ -86,10 +87,10 @@ unsigned int size(void)
 bool unload(void)
 {
     node* tmp;
-    while (first != NULL)
+    while (head != NULL)
     {
-        tmp = first;
-        first = first->next;
+        tmp = head;
+        head = head->next;
         free(tmp);
     }
     return true;
