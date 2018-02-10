@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
+#include <ctype.h>
 
 typedef struct Node
 {
@@ -16,16 +18,26 @@ unsigned int dictionarySize = 0;
 
 bool check(const char *word)
 {
+    int len = strlen(word);
+    char *copy = malloc(len+1);
+    for (int i = 0; i < len; i++)
+    {
+        copy[i] = tolower(word[i]);
+    }
+    copy[len] = '\0';
+
     Node* current = head;
     while (current != NULL)
     {
-        if (strcmp(current->word, word) == 0)
+        if (strcasecmp(copy, current->word) == 0)
         {
+            free(copy);
             return true;
         }
         current = current->next;
     }
 
+    free(copy);
     return false;
 }
 
@@ -34,14 +46,14 @@ bool load(const char *dictionary)
     FILE* file = fopen(dictionary, "r");
     if (file == NULL)
         return false;
-    
+
     char word[LENGTH+1];
-    
+
     Node* current;
-    while (fscanf(file, "%s\n", word)!= EOF)
+    while (fscanf(file, "%s", word) != EOF)
     {
         dictionarySize++;
-        
+
         Node* newNode = malloc(sizeof(Node));
         strcpy(newNode->word, word);
 
@@ -56,7 +68,7 @@ bool load(const char *dictionary)
             current = current->next;
         }
     }
-    
+
     fclose(file);
     return true;
 }
