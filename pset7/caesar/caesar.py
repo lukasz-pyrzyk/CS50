@@ -1,6 +1,7 @@
 import sys
 from cs50 import get_string
 
+
 def encryptForValuesInRegion(value, beginning, to, key):
     cn = ord(value)
     if value >= beginning and value <= to:
