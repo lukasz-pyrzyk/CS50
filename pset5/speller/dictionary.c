@@ -47,16 +47,15 @@ bool load(const char *dictionary)
     node* current = head;
     while (feof(file))
     {
-        lines++;
         node* node = malloc(sizeof(node));
-        if(node != NULL)
+        if(node == NULL)
         {
             printf("Cannot allocate more memory for node with line %i\n", lines);
             return false;
         }
         
         fscanf(file, "%s", node->word);
-        
+
         if (current != NULL)
         {
             current->next = node;
@@ -66,6 +65,7 @@ bool load(const char *dictionary)
         {
             current = node;
         }
+        lines++;
     }
 
     fclose(file);
