@@ -45,7 +45,7 @@ bool load(const char *dictionary)
     }
 
     node* current = head;
-    while (feof(file))
+    while (!feof(file))
     {
         node* node = malloc(sizeof(node));
         if(node == NULL)
