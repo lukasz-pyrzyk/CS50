@@ -45,36 +45,29 @@ bool load(const char *dictionary)
     }
 
     node* current = head;
-    char* line = malloc(LENGTH);
-    if (line == NULL)
+    while (feof(file))
     {
-        printf("Cannot allocate memory for temp line");
-        return false;
-    }
-    while (fgets(line, LENGTH, file) != NULL)
-    {
-        node* row = malloc(sizeof(node));
-        if(row != NULL)
+        lines++;
+        node* node = malloc(sizeof(node));
+        if(node != NULL)
         {
             printf("Cannot allocate more memory for node with line %i\n", lines);
             return false;
         }
         
-        strcpy(row->word, line);
-
+        fscanf(file, "%s", node->word);
+        
         if (current != NULL)
         {
-            current->next = row;
+            current->next = node;
             current = current->next;
         }
         else
         {
-            current = row;
+            current = node;
         }
-        lines++;
     }
 
-    free(line);
     fclose(file);
     return true;
 }
