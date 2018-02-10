@@ -4,19 +4,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct node
+typedef struct Node
 {
-    char word[LENGTH + 1];
-    struct node* next;
+    char word[LENGTH];
+    struct Node* next;
 }
-node;
+Node;
 
-node* head;
-unsigned int lines = 0;
+Node* head;
+unsigned int dictionarySize = 0;
 
 bool check(const char *word)
 {
-    node* current = head;
+    Node* current = head;
     while (current != NULL)
     {
         if (strcmp(current->word, word) == 0)
@@ -31,55 +31,44 @@ bool check(const char *word)
 
 bool load(const char *dictionary)
 {
-    if (dictionary == NULL)
-    {
-        printf("Cannot open the file, file name is null");
-        return false;
-    }
-
     FILE* file = fopen(dictionary, "r");
     if (file == NULL)
-    {
-        printf("Cannot open file, fopen returns null pointer\n");
         return false;
-    }
-
-    node* current = head;
-    while (!feof(file))
+    
+    char word[LENGTH+1];
+    
+    Node* current;
+    while (fscanf(file, "%s\n", word)!= EOF)
     {
-        node* node = malloc(sizeof(node));
-        if(node == NULL)
-        {
-            printf("Cannot allocate more memory for node with line %i\n", lines);
-            return false;
-        }
+        dictionarySize++;
         
-        fscanf(file, "%s", node->word);
+        Node* newNode = malloc(sizeof(Node));
+        strcpy(newNode->word, word);
 
-        if (current != NULL)
+        if (current == NULL)
         {
-            current->next = node;
-            current = current->next;
+            head = newNode;
+            current = head;
         }
         else
         {
-            current = node;
+            current->next = newNode;
+            current = current->next;
         }
-        lines++;
     }
-
+    
     fclose(file);
     return true;
 }
 
 unsigned int size(void)
 {
-    return lines;
+    return dictionarySize;
 }
 
 bool unload(void)
 {
-    node* tmp;
+    Node* tmp;
     while (head != NULL)
     {
         tmp = head;
