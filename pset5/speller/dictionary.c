@@ -29,7 +29,7 @@ bool check(const char *word)
     Node* current = head;
     while (current != NULL)
     {
-        if (strcasecmp(copy, current->word) == 0)
+        if (strcmp(copy, current->word) == 0)
         {
             free(copy);
             return true;
