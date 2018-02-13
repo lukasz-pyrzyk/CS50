@@ -113,7 +113,7 @@ bool check(const char *word)
 
 bool load(const char *dictionary)
 {
-    head = malloc(sizeof(Node));
+    head = CreateNode();
     FILE* file = fopen(dictionary, "r");
     if (file == NULL)
         return false;
