@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/pset5/speller/speller",
-            "args": ["texts/alice.txt"],
+            "args": ["texts/debugging.txt"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/pset5/speller",
             "environment": [],
