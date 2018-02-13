@@ -84,6 +84,7 @@ bool Contains(Node* root, string word)
 
         if (current->childrens[index] == NULL)
         {
+            free(copy);
             return false;
         }
 
