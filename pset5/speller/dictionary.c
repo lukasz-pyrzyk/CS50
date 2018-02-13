@@ -105,7 +105,9 @@ bool check(const char *word)
     copy[len] = '\0';
 
     Node* current = head;
-    return Contains(current, copy);
+    bool result = Contains(current, copy);
+    free(copy);
+    return result;
 }
 
 bool load(const char *dictionary)
