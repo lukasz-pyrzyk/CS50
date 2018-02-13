@@ -55,12 +55,11 @@ Node* CreateNode()
 void Insert(Node* root, string word)
 {
     int len = strlen(word);
-    char* copy = ToLower(word, len);
     
     Node* current = root;
     for (int i = 0; i < len; i++)
     {
-        int index = RoundIndex(copy[i]);
+        int index = RoundIndex(word[i]);
         
         if (current->childrens[index] == NULL)
         {
