@@ -11,17 +11,16 @@ const int CHARACTERS = 27; // alphabet + "`"
 
 typedef struct Node
 {
-    struct Node* childrens[CHARACTERS];
+    struct Node *childrens[CHARACTERS];
     bool lastWord;
-}
-Node;
+} Node;
 
 unsigned int dictionarySize = 0;
-Node* head = NULL;
+Node *head = NULL;
 
-char* ToLower(char* word, int len)
+char *ToLower(char *word, int len)
 {
-    char* copy = malloc(len+1);
+    char *copy = malloc(len + 1);
     for (int i = 0; i < len; i++)
     {
         copy[i] = tolower(word[i]);
@@ -36,13 +35,13 @@ int RoundIndex(int index)
     {
         return CHARACTERS - 1;
     }
-    
+
     return index - 'a';
 }
 
-Node* CreateNode()
+Node *CreateNode()
 {
-    Node* node = malloc(sizeof(Node));
+    Node *node = malloc(sizeof(Node));
     node->lastWord = false;
 
     for (int i = 0; i < CHARACTERS; i++)
@@ -52,15 +51,15 @@ Node* CreateNode()
     return node;
 }
 
-void Insert(Node* root, string word)
+void Insert(Node *root, string word)
 {
     int len = strlen(word);
-    
-    Node* current = root;
+
+    Node *current = root;
     for (int i = 0; i < len; i++)
     {
         int index = RoundIndex(word[i]);
-        
+
         if (current->childrens[index] == NULL)
         {
             current->childrens[index] = CreateNode();
@@ -72,12 +71,12 @@ void Insert(Node* root, string word)
     current->lastWord = true;
 }
 
-bool Contains(Node* root, string word)
+bool Contains(Node *root, string word)
 {
     int len = strlen(word);
-    char* copy = ToLower(word, len);
+    char *copy = ToLower(word, len);
 
-    Node* current = root;
+    Node *current = root;
     for (int i = 0; i < len; i++)
     {
         int index = RoundIndex(copy[i]);
@@ -98,14 +97,14 @@ bool Contains(Node* root, string word)
 bool check(const char *word)
 {
     int len = strlen(word);
-    char *copy = malloc(len+1);
+    char *copy = malloc(len + 1);
     for (int i = 0; i < len; i++)
     {
         copy[i] = tolower(word[i]);
     }
     copy[len] = '\0';
 
-    Node* current = head;
+    Node *current = head;
     bool result = Contains(current, copy);
     free(copy);
     return result;
@@ -114,11 +113,12 @@ bool check(const char *word)
 bool load(const char *dictionary)
 {
     head = CreateNode();
-    FILE* file = fopen(dictionary, "r");
+    FILE *file = fopen(dictionary, "r");
     if (file == NULL)
+    {
         return false;
-
-    char word[LENGTH+1];
+    }
+    char word[LENGTH + 1];
 
     while (fscanf(file, "%s", word) != EOF)
     {
@@ -135,10 +135,12 @@ unsigned int size(void)
     return dictionarySize;
 }
 
-void freeNodes(Node* node)
+void freeNodes(Node *node)
 {
-    if (node == NULL) return;
-
+    if (node == NULL)
+    {
+        return;
+    }
     for (int i = 0; i < CHARACTERS; i++)
     {
         freeNodes(node->childrens[i]);
