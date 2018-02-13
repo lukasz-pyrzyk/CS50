@@ -17,7 +17,7 @@ typedef struct Node
 Node;
 
 unsigned int dictionarySize = 0;
-Node* head;
+Node* head = NULL;
 
 char* ToLower(char* word, int len)
 {
