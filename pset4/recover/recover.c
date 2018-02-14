@@ -3,9 +3,9 @@
 #include <stdint.h>
 #include <string.h>
 
-int main(int argc, string argv[]) 
+int main(int argc, string argv[])
 {
-    if(argc != 2)
+    if (argc != 2)
     {
         printf("%s file.raw\n", argv[0]);
         return 1;
@@ -18,34 +18,52 @@ int main(int argc, string argv[])
         printf("Unable to open file %s", fileName);
         return 2;
     }
-    
+
     int count = 0;
+    int open = 0;
+    FILE *outputFile;
+
     uint8_t buffer[512];
     uint8_t jpegStartBuffer[4] = {0xff, 0xd8, 0xff, 0xe0};
+    uint8_t jpegEndBuffer[4] = {0xff, 0xd8, 0xff, 0xe1};
+    uint8_t check[4];
+    fread(buffer, 512, 1, inputFile);
 
-    FILE* outputFile = NULL;
-    while(fread(buffer, 1, 512, inputFile) == 512)
+    while (fread(buffer, 512, 1, inputFile) > 0)
     {
-        if (memcmp(buffer, jpegStartBuffer, 4) == 0)
+        for (int i = 0; i < 4; i++)
         {
-            char newFileName[8];
-            sprintf(newFileName, "%03d.jpg", count);
+            check[i] = buffer[i];
+        }
 
-            if (outputFile == NULL)
+        if ((memcmp(jpegStartBuffer, check, 4) == 0 ) || (memcmp(jpegEndBuffer, check, sizeof(check)) == 0))
+        {
+            char filename[8];
+            sprintf(filename, "%03d.jpg", count);
+
+            if (open == 0)
             {
-                outputFile = fopen(newFileName, "w");
-                fwrite(buffer, sizeof(buffer), 512, outputFile);
+                outputFile = fopen(filename, "w");
+                fwrite(buffer, sizeof(buffer), 1, outputFile);
+                open = 1;
             }
-            else
+            if (open == 1)
             {
                 fclose(outputFile);
-                outputFile = fopen(newFileName, "w");
-                fwrite(buffer, sizeof(buffer), 512, outputFile);
+                outputFile = fopen(filename, "w");
+                fwrite(buffer, sizeof(buffer), 1, outputFile);
                 count++;
             }
         }
+        else
+        {
+            if (open == 1)
+            {
+                fwrite(buffer, sizeof(buffer), 1, outputFile);
+            }
+        }
     }
-    if (outputFile != NULL)
+    if (outputFile)
     {
         fclose(outputFile);
     }
